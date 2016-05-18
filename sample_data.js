@@ -56,6 +56,7 @@ var sampleData2 = [
                     dob: "1547-09-29",
                     dod: "1616-04-22"
                 },
+                genres: [ "Novel","Poetry","Theater"],
                 books: [
                     {title: "Don Quijote de la Mancha", year: 1605},
                     {title: "Novelas Ejemplares", year: 1613},

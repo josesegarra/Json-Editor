@@ -18,23 +18,28 @@
     <script language="javascript" src="JSONeditor.js"></script>
 
     <script language="javascript">
-
+            
          function asJson(a) {
                 var a = JSON.stringify(a);                                                              //      Get a JSON representation if tis value
-                return (a.length > 25 ? a.substring(0, 25) + ".." : a);                    //      Of no more than 35 chars.
+                return (a.length > 50 ? a.substring(0, 50) + ".." : a);                    //      Of no more than 35 chars.
             }
 
 
 
-        function onNotify(kind,element,jItem,action){
-            if (action!="select" && action!="unselect") console.log(action+" of kind: "+kind+" on element "+element+" and data "+jItem);
-            if (kind=="button") jItem.eHint.innerHTML=(jItem.bOpened?"":asJson(jItem.data));
+        function onNotify(kind,element,jItem,action,data){
+            //if (action!="select" && action!="unselect" && action!="new" && action!="add" && action!="update") console.log("Action: [" +action+"] on "+kind+" as element "+element+" and data "+jItem);
+            if (action=="new" && kind=="label" && !jItem.parent){
+                element.innerHTML="ROOT";  
+            } 
 
+            if (kind=="data"){
+                console.log(action+"  ["+data+"]  in");
+                console.log(jItem);    
+            } 
+            if (kind=="button") jItem.eHint.innerHTML=(jItem.bOpened?"":asJson(jItem.data));
             if (kind=="label") element.style.color="blue";       
             if (kind=="hint") element.style.color="#CACACA";       
         }
-
-
 
         function init() {
             var w = document.getElementById('tree');
@@ -50,6 +55,7 @@
 <body onload="init();">
     <div style="border: 1px solid #E0E0E0;float:left;margin-left:150px;width:500px;height:800px;" id="tree">
         <!-- This DIV will hold the JSON editor-->
+
     </div>
     <div style="float:right;width:500px;height:300px;border: 1px solid blue" id="log"></div>
 </body> 
